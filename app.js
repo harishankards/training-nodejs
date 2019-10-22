@@ -5,6 +5,7 @@
  const express = require('express');
  const mongoose = require('mongoose');
  const path = require('path');
+ const bodyParser = require('body-parser');
 
 
 /**
@@ -19,7 +20,8 @@ const app = express();
 app.set('port', 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 /**
  * Connect to MongoDB.
@@ -48,10 +50,14 @@ app.listen(app.get('port'), () => {
  * Controllers (route handlers).
  */
 const homeController = require('./controllers/home');
+const userController = require('./controllers/user');
 
 /**
  * Primary app routes.
  */
 app.get('/', homeController.index);
+app.get('/signup', userController.showSignup);
+app.post('/signup', userController.doSignup);
+
   
 module.exports = app;
