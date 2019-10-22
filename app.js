@@ -9,6 +9,8 @@
  * Create Express server.
  */
 const app = express();
+const path = require('path');
+
 
 /**
  * Express configuration.
